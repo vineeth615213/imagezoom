@@ -113,10 +113,11 @@ def upload_file():
         if file.filename == '':
             return redirect(request.url)
         if not file or not allowed_file(file.filename):
-            return jsonify("Unsupported file format")
+            return jsonify({"status":0,"message":"Unsuppored file format"})
         filename = str(datetime.now())+ secure_filename(file.filename)
+        filename.replace(" ", "")
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify(filename)
+        return return jsonify({"status":1,"name":filename})
 #        return redirect(url_for('view_file',
 #                                    filename=filename))
     return '''
