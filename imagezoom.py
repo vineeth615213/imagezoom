@@ -116,8 +116,9 @@ def upload_file():
             return jsonify("Unsupported file format")
         filename = str(datetime.now())+ secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return redirect(url_for('view_file',
-                                    filename=filename))
+        return jsonify(filename)
+#        return redirect(url_for('view_file',
+#                                    filename=filename))
     return '''
     <!doctype html>
     <title>Upload new File</title>
