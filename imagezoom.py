@@ -117,7 +117,7 @@ def upload_file():
         filename = str(datetime.now())+ secure_filename(file.filename)
         filename.replace(" ", "")
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return return jsonify({"status":1,"name":filename})
+        return jsonify({"status":1,"name":filename})
 #        return redirect(url_for('view_file',
 #                                    filename=filename))
     return '''
