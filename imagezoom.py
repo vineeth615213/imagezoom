@@ -126,7 +126,7 @@ def upload_file():
 def names():
     path = app.config['UPLOAD_FOLDER']
     files = [f for f in listdir(path) if isfile(join(path, f))]
-    return jsonify({"file_name":files})
+    return jsonify({"file_names":files})
 
 @app.route('/access_key')
 def access_key():
