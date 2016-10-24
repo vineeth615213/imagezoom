@@ -147,12 +147,12 @@ def access_key():
 def delete_file():
     key = request.args.get('access_key')
     if key != ACCESS_KEY:
-        return jsonify("Invalid access key")
+        return jsonify({"status":1,"message":"Invalid Access key"})
     file_name = request.args.get('filename')
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
     if os.path.isfile(full_path):
         os.remove(full_path)
-    return jsonify("Success")
+    return jsonify({"status":1,"message":"Success"})
 
 
 
