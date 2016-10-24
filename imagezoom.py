@@ -130,7 +130,7 @@ def names():
 
 @app.route('/access_key')
 def access_key():
-    return jsonify(ACCESS_KEY)
+    return jsonify({"access_key":ACCESS_KEY})
 
 
 @app.route('/delete')
