@@ -44,11 +44,19 @@ SLIDE_NAME = 'slide'
 
 FILE_PATH = '/Users/vineeth/projects/Flask/imagezoom/CMU-1-JP2K-33005.svs'
 
+
+from flask.ext.cors import CORS, cross_origin
 app = Flask(__name__)
+cors = CORS(app)
 app.config.from_object(__name__)
+
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 app.config.from_envvar('DEEPZOOM_TILER_SETTINGS', silent=True)
-app.config['UPLOAD_FOLDER'] = '/Users/vineeth/projects/Flask/imagezoom/media'
+app.config['UPLOAD_FOLDER'] = '/home/ubuntu/imagezoom/media'
 app.config['MAX_CONTENT_PATH'] = 1024*1024*1024
+ACCESS_KEY = 'E4733D156B7F755A792E5EFBEE8D5'
+
 
 ALLOWED_EXTENSIONS = set(['svs','ndpi','vms','vmu','scn','mrxs','tiff','svslide','bif'])
 
@@ -127,6 +135,23 @@ def names():
     path = app.config['UPLOAD_FOLDER']
     files = [f for f in listdir(path) if isfile(join(path, f))]
     return jsonify(files)
+
+@app.route('/access_key')
+def access_key():
+    return jsonify(ACCESS_KEY)
+
+
+@app.route('/delete')
+def delete_file():
+    key = request.args.get('access_key')
+    if key != ACCESS_KEY:
+        return jsonify("Invalid access key")
+    file_name = request.args.get('filename')
+    full_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+    if os.path.isfile(full_path):
+        os.remove(full_path)
+    return jsonify("Success")
+
 
 
 @app.route('/view_file')
