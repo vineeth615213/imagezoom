@@ -101,7 +101,7 @@ def load_slide(filename):
         app.slide_mpp = 0
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
