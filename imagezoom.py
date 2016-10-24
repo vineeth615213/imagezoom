@@ -142,7 +142,12 @@ def delete_file():
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
     if os.path.isfile(full_path):
         os.remove(full_path)
-    return jsonify({"status":1,"message":"Success"})
+        return jsonify({"status":1,"message":"Success"})
+    else:
+        jsonify({"status":1,"message":"file does not exists"})
+
+    
+
 
 
 
